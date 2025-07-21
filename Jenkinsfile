@@ -4,48 +4,48 @@ pipeline {
     }
 
     stages {
-        stage('Downloading the source code') { 
+        stage('Downloading the source code') {
             steps {
                 git branch: 'main', credentialsId: 'github-sumitrmalik-pat', url: 'https://github.com/sumitrmalik/SampleFlaskApp.git'
                 echo 'code downloaded successfully'
             }
         }
 
-        stage('Test') { // Renamed for clarity
+        stage('Test') {
             steps {
                 // Consider moving yum install into Dockerfile or ensuring agent setup
-                sh 'sudo yum install unzip -y'
-                sh 'yum install python3-pip -y' 
-                sh 'pip3 install -r requirements.txt'
+                sh 'sudo yum install unzip -y' // This should only be needed once on the agent
+                sh 'yum install python3-pip -y' // This should only be needed once on the agent
+                sh 'pip3 install -r requirements.txt' // This installs on the agent, consider doing it in Dockerfile
                 sh 'pytest'
                 echo "Code has been successfully tested."
             }
         }
 
-        stage('Build Docker Image') { // Renamed for clarity
+        stage('Build Docker Image') {
             steps {
                 sh 'docker build -t gfgwebimg .'
             }
         }
 
-        stage('SonarQube Analysis') { // NEW STAGE
+        stage('SonarQube Analysis') {
             steps {
-                script { // Use script block for scripted steps within declarative
+                script {
                     def scannerHome = tool 'SonarScanner';
-                    withSonarQubeEnv('SonarQubeServer') { // Replace with your SonarQube server ID configured in Jenkins
+                    withSonarQubeEnv('SonarQubeServer') {
                         sh "${scannerHome}/bin/sonar-scanner"
                     }
                 }
             }
         }
 
-        stage('Deployment') { // Renamed for clarity
+        stage('Deployment') {
             steps {
                 // Make stop/rm idempotent
                 sh 'docker stop webos || true'
                 sh 'docker rm webos || true'
                 // Add memory limit if needed
-                sh 'docker run -dit --name webos -p 80:80 gfgwebimg' // Add -m 2000m if you want to enforce memory limit
+                sh 'docker run -dit --name webos -p 80:80 -m 2000m gfgwebimg' // Add -m 2000m if you want to enforce memory limit
             }
         }
     }
