@@ -4,7 +4,7 @@ pipeline {
     }
 
     stages {
-        stage('Downloading the source code') { // Renamed for clarity
+        stage('Downloading the source code') { 
             steps {
                 git branch: 'main', credentialsId: 'github-sumitrmalik-pat', url: 'https://github.com/sumitrmalik/SampleFlaskApp.git'
                 echo 'code downloaded successfully'
