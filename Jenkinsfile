@@ -29,6 +29,7 @@ pipeline {
         stage('Deployment - job4') {
             steps {
                 sh 'docker stop webos'
+                sh 'docker rm webos'
                 sh 'docker run -dit --name webos -p 80:80 gfgwebimg'
             }
         }
