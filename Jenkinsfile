@@ -14,7 +14,8 @@ pipeline {
         stage('Test') { // Renamed for clarity
             steps {
                 // Consider moving yum install into Dockerfile or ensuring agent setup
-                sh 'yum install python3-pip -y' // Still a concern, see notes below
+                sh 'sudo yum install unzip -y'
+                sh 'yum install python3-pip -y' 
                 sh 'pip3 install -r requirements.txt'
                 sh 'pytest'
                 echo "Code has been successfully tested."
