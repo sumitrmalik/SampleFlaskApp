@@ -49,4 +49,3 @@ pipeline {
         }
     }
 }
-// Remove the 'node { ... }' block entirely from the end of the file
