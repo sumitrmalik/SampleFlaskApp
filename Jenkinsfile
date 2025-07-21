@@ -32,7 +32,7 @@ pipeline {
             steps {
                 script { // Use script block for scripted steps within declarative
                     def scannerHome = tool 'SonarScanner';
-                    withSonarQubeEnv('SonarQubeServer ') { // Replace with your SonarQube server ID configured in Jenkins
+                    withSonarQubeEnv('SonarQubeServer') { // Replace with your SonarQube server ID configured in Jenkins
                         sh "${scannerHome}/bin/sonar-scanner"
                     }
                 }
