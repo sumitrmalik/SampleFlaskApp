@@ -37,7 +37,8 @@
             flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
         - name: Test with pytest
           run: |
-            pytest --cov=. --cov-report xml:coverage.xml
+            # pytest --cov=. --cov-report xml:coverage.xml
+            pytest --cov=sumitrmalik_SampleFlaskApp --cov-report=xml:coverage-reports/coverage.xml --cov-config=tox.ini --cov-branch
 
       sonarqube:
         name: SonarQube Scan
@@ -54,7 +55,7 @@
               #SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
             with:
               args: >
-                -Dsonar.python.coverage.reportPaths=coverage.xml
+                -Dsonar.python.coverage.reportPaths=coverage-reports/coverage.xml
                 -Dsonar.python.version=3.9
           # If you wish to fail your job when the Quality Gate is red, uncomment the
           # following lines. This would typically be used to fail a deployment.
