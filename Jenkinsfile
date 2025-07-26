@@ -4,6 +4,7 @@ pipeline {
     }
 
     stages {
+        // Keep the debug stage for one more run to confirm our assumptions
         stage('Debug Docker Environment') {
             steps {
                 sh 'echo "Current user for Jenkins agent:"'
@@ -20,10 +21,11 @@ pipeline {
         }
         stage('Deployment') {
             steps {
-                sh '/usr/bin/docker stop webos || true'
-                sh '/usr/bin/docker rm webos || true'
-                sh '/usr/bin/docker pull sumitrmalik/gfg27img'
-                sh '/usr/bin/docker run -dit --name webos -p 81:80 sumitrmalik/gfg27img'
+                // Use sudo for docker commands
+                sh 'sudo /usr/bin/docker stop webos || true'
+                sh 'sudo /usr/bin/docker rm webos || true'
+                sh 'sudo /usr/bin/docker pull sumitrmalik/gfg27img'
+                sh 'sudo /usr/bin/docker run -dit --name webos -p 81:80 sumitrmalik/gfg27img'
             }
         }
     }
