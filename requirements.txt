@@ -3,3 +3,4 @@ pytest
 Werkzeug==2.0.0
 flake8
 pytest-cov
+coverage
