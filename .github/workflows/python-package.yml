@@ -38,7 +38,7 @@
         - name: Test with pytest
           run: |
             # pytest --cov=. --cov-report xml:coverage.xml
-            pytest --cov=sumitrmalik_SampleFlaskApp --cov-report=xml:coverage-reports/coverage.xml --cov-config=tox.ini --cov-branch
+            pytest --cov=sumitrmalik_SampleFlaskApp --cov-report=xml:coverage-reports/coverage.xml
 
       sonarqube:
         name: SonarQube Scan
