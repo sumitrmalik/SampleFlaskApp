@@ -37,8 +37,8 @@
             flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
         - name: Test with pytest
           run: |
-            # pytest --cov=. --cov-report xml:coverage.xml
-            pytest --cov=sumitrmalik_SampleFlaskApp --cov-report xml:coverage-reports/Test-coverage-Sample.xml
+            pytest --cov=. --cov-report xml:coverage-reports/Test-coverage-Sample.xml
+            #pytest --cov=sumitrmalik_SampleFlaskApp --cov-report xml:coverage-reports/Test-coverage-Sample.xml
 
       sonarqube:
         name: SonarQube Scan
