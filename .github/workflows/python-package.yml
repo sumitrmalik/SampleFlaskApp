@@ -40,7 +40,7 @@ jobs:
           pytest --cov=. --cov-report xml:coverage-reports/Test-coverage-Sample.xml
           #pytest --cov=sumitrmalik_SampleFlaskApp --cov-report xml:coverage-reports/Test-coverage-Sample.xml
       - name: Upload coverage report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: coverage-report
           path: coverage-reports/Test-coverage-Sample.xml
@@ -55,7 +55,7 @@ jobs:
         with:
           fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
       - name: Download coverage report
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: coverage-report
           path: coverage-reports/ # Download to the same path as it was uploaded from
